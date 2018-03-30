@@ -1,10 +1,9 @@
-import AVFoundation
 import UIKit
-
-class ViewController: UIViewController{
+import AVFoundation
+class ViewController: UIViewController, AVAudioPlayerDelegate{
    
-    var xylophoneSound = NSURL(fileURLWithPath: Bundle.main.path(forResource: "note1", ofType: "wav")!)
-    var audioPlayer = AVAudioPlayer()
+    var audioPlayer : AVAudioPlayer!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -13,9 +12,15 @@ class ViewController: UIViewController{
 
 
     @IBAction func notePressed(_ sender: UIButton) {
-     
-        print(sender.tag)
-        
+      
+      let soundURL = Bundle.main.url(forResource: "note1", withExtension: "wav")
+        do{
+            audioPlayer = try AVAudioPlayer(contentsOf: soundURL!)
+        }
+        catch{
+            print(error)
+        }
+        audioPlayer.play()
     }
     
   
